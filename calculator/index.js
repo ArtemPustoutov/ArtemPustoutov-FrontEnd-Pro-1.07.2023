@@ -3,16 +3,16 @@ let a = +prompt('Первое число');
 let b = +prompt('Второе число');
 switch(action) {
     case 'add':
-        alert(a + b);
+        alert(`${a} + ${b} = ${a + b}`);
         break;
     case 'sub':
-        alert(a - b);
+        alert(`${a} - ${b} = ${a - b}`);
         break;
     case 'mult':
-        alert(a * b);
+        alert(`${a} * ${b} = ${a * b}`);
         break;
     case 'div':
-        alert(a / b);
+        alert(`${a} / ${b} = ${a / b}`);
         break;
     case null:
         alert('Вы не выбрали действие');
