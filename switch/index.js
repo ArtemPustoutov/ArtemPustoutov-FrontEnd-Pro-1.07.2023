@@ -14,16 +14,18 @@ console.log('OK!')
 //Решение перевод в  switch
 
 let numOrStr = prompt('input number or string');
-switch(numOrStr) {
-    case null:
+console.log(numOrStr)
+
+switch (true) {
+    case (numOrStr === null):
         console.log('ви скасували');
         break;
-    case '':
+    case (numOrStr.trim() === ''):
         console.log('Empty String');
         break;
-    case isNaN( +numOrStr ):
+    case isNaN( +numOrStr):
         console.log(' number is Ba_NaN');
         break;
-     default:
+    default:
         console.log('OK!');
 }
