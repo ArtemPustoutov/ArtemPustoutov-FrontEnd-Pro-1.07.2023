@@ -9,9 +9,9 @@ class Person {
     }
 }
 
-let Andriy = new Person(20, 'Andriy');
-let Boris = new Person(21, 'Boris');
-let Serhiy = new Person(17, 'Serhiy');
+let andriy = new Person(20, 'Andriy');
+let boris = new Person(21, 'Boris');
+let serhiy = new Person(17, 'Serhiy');
 
 class Auto {
     constructor(brend, model, year, number) {
@@ -38,12 +38,12 @@ let bmw = new Auto('bmw', 'm2', 2003, 2112);
 let opel = new Auto('opel', 'vivaro', 1998, 3212);
 let vaz = new Auto('vaz', '2106', 1986, 7832);
 
-Andriy.info;
-Boris.info;
+andriy.info;
+boris.info;
 
-bmw.owner(Andriy);
-vaz.owner(Boris);
-opel.owner(Serhiy); // Выведет вы слишком молоды так как меньше 18
+bmw.owner(andriy);
+vaz.owner(boris);
+opel.owner(serhiy); // Выведет вы слишком молоды так как меньше 18
 
 bmw.autoInfo;
 opel.autoInfo; // без владельца так как Сергею меньше 18 авто не закрепилось за ним
