@@ -2,4 +2,8 @@
     width:  150px;
     height: 150px;
     background-color: aquamarine;
+    position: absolute;
+    left: 250px;
+    top: 50px;
+    display: none;
 }

@@ -1,12 +1,9 @@
 let div = document.createElement('div');
 div.classList.add('ghost');
+document.body.appendChild(div);
 
 function showDiv() {
-    document.body.appendChild(div);
-    div.style.position = 'absolute';
-    div.style.display = 'inline-block';
-    div.style.left = '250px';
-    div.style.top = '50px';
+    div.style.display = 'block';
 }
 function hideDiv () {
     div.style.display = 'none';
