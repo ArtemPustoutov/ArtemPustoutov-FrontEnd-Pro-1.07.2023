@@ -1,0 +1,25 @@
+.block-holder {
+    display: flex;
+
+}
+ul {
+    list-style: none;
+}
+li {
+    padding-top: 10px;
+    list-style: none;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: gray;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px;
+}
+.list, .info    {
+    margin-left: 100px;
+}
