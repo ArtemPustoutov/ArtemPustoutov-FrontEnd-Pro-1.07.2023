@@ -5,7 +5,7 @@ let input = document.getElementById('info');
 
 function clearPage() {
     card.innerHTML = ' ';
- }
+}
 
 butt.onclick = function ajax() {
     let req = new XMLHttpRequest();
