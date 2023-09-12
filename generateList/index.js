@@ -33,7 +33,7 @@ let generateList = function generateList(array) {
             childElement = document.createTextNode(element);
         }
         li.appendChild(childElement);
-        ul.appendChild(li)
+        ul.appendChild(li);
     });
     return ul;
 }
