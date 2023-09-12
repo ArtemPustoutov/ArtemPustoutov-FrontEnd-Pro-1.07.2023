@@ -39,5 +39,4 @@ let generateList = function generateList(array) {
     })
     return ul;
 }
-
 document.body.appendChild(generateList(array));
