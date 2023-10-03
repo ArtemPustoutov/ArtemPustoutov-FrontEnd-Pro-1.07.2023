@@ -1,0 +1,12 @@
+ul, li {
+    list-style: none;
+    margin: 0 20px 20px 0;
+}
+.smile-btn {
+    border-radius: 40%;
+    border-style: unset;
+    cursor: pointer;
+}
+span {
+    margin-left: 25px ;
+}
