@@ -1,6 +1,6 @@
 import './App.css';
 import { useSelector, useDispatch} from "react-redux";
-import { addTodo, removeTodo, fetchTodo } from "./toDo/toDoSlice";
+import { addTodo, removeTodo, fetchTodo } from "./store/toDoSlice";
 import TodoIteam from './toDo/toDoIteam';
 import { useState, useEffect } from "react";
 
