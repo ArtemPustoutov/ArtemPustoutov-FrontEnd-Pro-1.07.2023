@@ -2,17 +2,29 @@ import { useFormik } from "formik"
 import {Button, TextField, Typography, Container} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
 import { signUpvalidation } from "./validationSignUp"
-import { useDispatch  } from 'react-redux';
-import { userSignUp} from "../../store/userSlice";
+import { useDispatch, useSelector  } from 'react-redux';
+import { userList, userSignUp} from "../../store/userSlice";
+import { useEffect } from 'react';
+import { allUser } from "../../store/selectors/selectors";
+import { local_token } from "../../common/constatnts";
+
 
 
 
 const SignUp = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const users = useSelector(allUser);
+    const templEmail = localStorage.getItem(local_token.TEMP_EMAIL)
+
+
+    useEffect(() => {
+        dispatch(userList());
+    }, [dispatch])
+
     const formik = useFormik({
         initialValues: {
-            email: '',
+            email: templEmail || '',
             password: '',
             confirmPassword: '',
             username: ''
@@ -24,9 +36,16 @@ const SignUp = () => {
                 email,
                 username,
                 password, 
+            };
+
+            const userExp =  users.find(user => user.email === email)
+            if(!userExp) {
+                dispatch(userSignUp(NewUser));
+                localStorage.removeItem(local_token.TEMP_EMAIL)
+                navigate("/ivent-page")
+            } else {
+                alert('user alredy exist, SIGN IN')
             }
-            dispatch(userSignUp(NewUser));
-            navigate('/ivent-page')
         }
     })
 

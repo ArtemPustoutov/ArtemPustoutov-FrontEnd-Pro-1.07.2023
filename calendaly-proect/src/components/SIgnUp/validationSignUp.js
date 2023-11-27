@@ -1,6 +1,5 @@
 import * as Yup from 'yup'
-
-const emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+import { emailRegex, passwordRegexp } from '../../common/constatnts';
 
 
 export const signUpvalidation = Yup.object().shape({
@@ -13,7 +12,7 @@ export const signUpvalidation = Yup.object().shape({
     password: Yup
         .string()
         .matches(
-            /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+            passwordRegexp,
             'Invalid password: Minimum eight characters, at least one letter and one number.'
         )
         .required('Password is required'),

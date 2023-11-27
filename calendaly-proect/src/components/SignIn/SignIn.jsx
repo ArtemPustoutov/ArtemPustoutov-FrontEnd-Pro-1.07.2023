@@ -2,13 +2,27 @@ import { useFormik } from "formik"
 import { signInvalidation } from "./validationSignIn"
 import {Button, TextField, Typography, Container} from '@mui/material'
 import { useNavigate} from 'react-router-dom'
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { userSignIn} from "../../store/userSlice";
+import { allUser } from "../../store/selectors/selectors";
+import { useEffect } from 'react';
+import { userList } from "../../store/userSlice";
+import {  Link } from "react-router-dom"
+import './sign.css'
+import { local_token } from "../../common/constatnts";
+
 
 
 const SignIn = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const users = useSelector(allUser);
+
+    useEffect(() => {
+        dispatch(userList());
+    }, [dispatch])
+
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -21,17 +35,14 @@ const SignIn = () => {
                 email,
                 password
             }
-            if(localStorage.getItem(user.email) !== null) {
-                const userInBase = localStorage.getItem(user.email)
-                const userData = JSON.parse(userInBase)
-                if(userData.email === user.email && userData.password === user.password) {
-                    alert('Well come Back')
-                    navigate('/ivent-page')
-                    dispatch(userSignIn(user))
-                }
-            }
-            else {
-                alert('user not foun, registration plz')
+
+            const userExp =  users.find(user => user.email === email && user.password === password)
+            if(userExp) {
+                dispatch(userSignIn(user));
+                navigate("/ivent-page")
+            } else {
+                alert('user not found , SIGN UP')
+                localStorage.setItem(local_token.TEMP_EMAIL, email)
                 navigate('/sign-up')
             }
         }
@@ -75,6 +86,7 @@ const SignIn = () => {
                 <Button type="submit" variant="contained" color="primary">
                     SIGN IN
                 </Button>
+                <span className="sign-up-link"><Link to='/sign-up'>Dont have account? Sign-UP!</Link></span>
             </form>
 
         </Container>
