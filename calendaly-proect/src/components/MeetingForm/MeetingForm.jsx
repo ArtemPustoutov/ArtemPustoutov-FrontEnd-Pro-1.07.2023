@@ -27,13 +27,12 @@ const MeetingForm = ({onClose}) => {
             eventName: "",
             description: "",
             selectedUser: "",
-            selectTime:  ""
+            selectTime: ''
 
         },
         validationSchema: meetingValidation,
         onSubmit: (values) => {
             dispatch(addMeeting(values))
-            console.log('test')
             onClose()
         }
     })
@@ -44,7 +43,10 @@ const MeetingForm = ({onClose}) => {
             <FormControl fullWidth>
             <DateTimePicker
                 value={formik.values.selectTime}
-                nChange={formik.handleChange}
+                onChange={(value) =>{
+                    formik.setFieldValue("selectTime", value, true)
+                    console.log(value)
+                } }
                 name="selectTime"
                 id="selectTime"
                 type="datetime-local"

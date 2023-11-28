@@ -31,14 +31,9 @@ const SignIn = () => {
         validationSchema: signInvalidation,
         onSubmit: () => {
             const { email, password} = formik.values
-            const user = {
-                email,
-                password
-            }
-
             const userExp =  users.find(user => user.email === email && user.password === password)
             if(userExp) {
-                dispatch(userSignIn(user));
+                dispatch(userSignIn(userExp));
                 navigate("/ivent-page")
             } else {
                 alert('user not found , SIGN UP')

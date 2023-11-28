@@ -83,7 +83,7 @@ const IventPage = () => {
             >
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                HEllo {user.email}
+                HEllo {user.username}
             </Typography>
             <Button variant="contained" color="success" disabled= {userQuantity()} onClick={heandleOpenModal} >Create Event</Button>
             <Button color="inherit" onClick={logOut}>logOut</Button>
@@ -110,13 +110,13 @@ const IventPage = () => {
             </form>
             </Alert>
         ) : 
-        <Typography variant="h6" align="center" mt={6}>  Create Your meeting</Typography>}
+        (meetings.length > 0 ? <Typography variant="h6" align="center" mt={6}>  Your meetings</Typography>: <Typography variant="h6" align="center" mt={6}>  Create Your meeting</Typography>)}
         <Modal
         open={open}
         onClose={heandleCloseModal}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
-      >
+        >
         <Box class="modal" sx={{ width: 400 }}>
             <h2 id="parent-modal-title">Create new Event</h2>
             <MeetingForm onClose={heandleCloseModal}/>
@@ -134,6 +134,9 @@ const IventPage = () => {
                 </Typography>
                 <Typography variant="h5" component="div">
                     Event description:{meeting.text.description}
+                </Typography>
+                <Typography>
+                    Selcted Time :  {JSON.stringify(meeting.text.selectTime)}
                 </Typography>
                 <Button onClick={() => heandleDelate(meeting)} variant="contained" color="error">DELETE</Button>
                 </CardContent>
