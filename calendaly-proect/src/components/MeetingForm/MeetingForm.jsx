@@ -4,7 +4,7 @@ import { meetingValidation } from "./meetingValidation"
 import {TextField} from "@mui/material"
 import {Button} from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
-import { allUser } from "../../store/selectors/selectors"
+import { allUser, personalUser } from "../../store/selectors/selectors"
 import {InputLabel} from "@mui/material"
 import {Select} from "@mui/material"
 import {MenuItem} from "@mui/material"
@@ -17,6 +17,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 const MeetingForm = ({onClose}) => {
      const dispatch = useDispatch()
      const users = useSelector(allUser)
+      const user = useSelector(personalUser)
 
     useEffect(() => {
         dispatch(userList());
@@ -27,12 +28,19 @@ const MeetingForm = ({onClose}) => {
             eventName: "",
             description: "",
             selectedUser: "",
-            selectTime: ''
+            selectTime: '',
 
         },
         validationSchema: meetingValidation,
         onSubmit: (values) => {
-            dispatch(addMeeting(values))
+            const valuesCreater = {
+                eventName: values.eventName,
+                description: values.description,
+                selectedUser: values.selectedUser,
+                selectTime: values.selectTime,
+                creater: user.username
+            }
+            dispatch(addMeeting(valuesCreater))
             onClose()
         }
     })

@@ -3,9 +3,9 @@ import {Button, TextField, Typography, Container} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
 import { signUpvalidation } from "./validationSignUp"
 import { useDispatch, useSelector  } from 'react-redux';
-import { userList, userSignUp} from "../../store/userSlice";
+import { userList, userSignUp, userToken} from "../../store/userSlice";
 import { useEffect } from 'react';
-import { allUser } from "../../store/selectors/selectors";
+import { allUser,takeToken  } from "../../store/selectors/selectors";
 import { local_token } from "../../common/constatnts";
 
 
@@ -16,6 +16,19 @@ const SignUp = () => {
     const navigate = useNavigate()
     const users = useSelector(allUser);
     const templEmail = localStorage.getItem(local_token.TEMP_EMAIL)
+    const token = useSelector(takeToken)
+
+    useEffect(() => {
+    dispatch(userToken())
+    },[dispatch])
+
+    useEffect(() => {
+    if(!token) {
+    navigate('/sign-in')
+    } else {
+    navigate('/ivent-page')
+    }
+    })
 
 
     useEffect(() => {

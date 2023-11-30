@@ -5,7 +5,6 @@ import { local_token } from '../common/constatnts';
 export const initialState = {
     meetings: [],
 }
-
 const meetingSlice = createSlice({
     name: 'meetings',
     initialState,
@@ -19,7 +18,7 @@ const meetingSlice = createSlice({
         },
         deleteMeeting: (state, action) => {
             state.meetings = state.meetings.filter(meeting => JSON.stringify(meeting) !== JSON.stringify(action.payload))
-        }
+        },
     }
 })
 

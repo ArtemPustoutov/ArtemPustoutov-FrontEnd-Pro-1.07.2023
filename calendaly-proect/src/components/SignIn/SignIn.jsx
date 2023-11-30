@@ -4,9 +4,9 @@ import {Button, TextField, Typography, Container} from '@mui/material'
 import { useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux';
 import { userSignIn} from "../../store/userSlice";
-import { allUser } from "../../store/selectors/selectors";
+import { allUser, takeToken } from "../../store/selectors/selectors";
 import { useEffect } from 'react';
-import { userList } from "../../store/userSlice";
+import { userList, userToken } from "../../store/userSlice";
 import {  Link } from "react-router-dom"
 import './sign.css'
 import { local_token } from "../../common/constatnts";
@@ -14,9 +14,24 @@ import { local_token } from "../../common/constatnts";
 
 
 const SignIn = () => {
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const users = useSelector(allUser);
+    const token = useSelector(takeToken)
+
+    useEffect(() => {
+    dispatch(userToken())
+    },[dispatch])
+
+    useEffect(() => {
+    if(!token) {
+    navigate('/sign-in')
+    } else {
+        navigate('/ivent-page')
+    }
+    })
+
 
     useEffect(() => {
         dispatch(userList());
