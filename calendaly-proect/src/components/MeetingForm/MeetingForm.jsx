@@ -27,7 +27,7 @@ const MeetingForm = ({onClose}) => {
         initialValues: {
             eventName: "",
             description: "",
-            selectedUser: "",
+            selectedUser: [],
             selectTime: '',
 
         },
@@ -87,15 +87,17 @@ const MeetingForm = ({onClose}) => {
                         id="selectedUser"
                         name="selectedUser"
                         label="Select User"
+                        multiple
                         value={formik.values.selectedUser}
-                        onChange={formik.handleChange}
+                        onChange={(event) =>
+                            formik.setFieldValue("selectedUser", event.target.value)}
                         error={
                         formik.touched.selectedUser &&
                         Boolean(formik.errors.selectedUser)
                         }
                     >
                         {users.map((user) => (
-                        <MenuItem key={user.email} value={user.username}>
+                        <MenuItem key={user.email} value={user}>
                             {user.username}
                         </MenuItem>
                         ))}

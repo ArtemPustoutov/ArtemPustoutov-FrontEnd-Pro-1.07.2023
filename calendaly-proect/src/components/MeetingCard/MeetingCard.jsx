@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 
 
 
+
 const MeetingCard = () => {
 
     const dispatch = useDispatch()
@@ -70,23 +71,26 @@ const MeetingCard = () => {
             Create Your meeting
         </Typography>)}
     {meetings.length === 0 ? (<Typography variant="h6" align="center" mt={6}> NO Events </Typography>) : 
-    ( meetings.map((meeting) =>(user.username === meeting.text.selectedUser || user.username === meeting.text.creater ?
+    ( meetings.map((meeting) =>(user.username === meeting.selectedUser || user.username === meeting.creater ?
         (<Card key={meeting.name} id={meeting.name} sx={{ minWidth: 275 }}>
             <CardContent>
             <Typography variant="h5" component="div">
-                Creater:{meeting.text.creater}
+                Creater:{meeting.creater}
             </Typography>
             <Typography variant="h5" component="div">
-                Invite user:{meeting.text.selectedUser}
+                Invite user:
+                {meeting.selectedUser.map((meeting) => (
+                    <span className=" selectedUser">{meeting.username}</span>
+                ))}
             </Typography>
             <Typography variant="h5" component="div">
-                Event name:{meeting.text.eventName}
+                Event name:{meeting.eventName}
             </Typography>
             <Typography variant="h5" component="div">
-                Event description:{meeting.text.description}
+                Event description:{meeting.description}
             </Typography>
             <Typography>
-                Selcted Time :  {JSON.stringify(meeting.text.selectTime)}
+                Selcted Time :  {JSON.stringify(meeting.selectTime)}
             </Typography>
             <Button onClick={() => heandleDelate(meeting)} variant="contained" color="error">DELETE</Button>
             </CardContent>

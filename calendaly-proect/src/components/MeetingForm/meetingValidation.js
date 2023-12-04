@@ -7,6 +7,5 @@ import * as Yup from 'yup'
     description: Yup.string()
       .required("This field is required")
       .min(10, "Minimum 10 characters"),
-    selectedUser: Yup.string().required("This field is required"),
     selectDate: Yup.string()
 })

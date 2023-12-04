@@ -9,10 +9,14 @@ const meetingSlice = createSlice({
     name: 'meetings',
     initialState,
     reducers: {
-        addMeeting: (state, action) => {
-            const newMeeting = {
-                text: action.payload,
+        checkMeetings: (state) => {
+            let meetings = localStorage.getItem(local_token.MEETINGS)
+            if(meetings) {
+                state.meetings = JSON.parse(meetings)
             }
+        },
+        addMeeting: (state, action) => {
+            const newMeeting = action.payload
             state.meetings.push(newMeeting)
             localStorage.setItem(local_token.MEETINGS, JSON.stringify(state.meetings))
         },
@@ -22,6 +26,6 @@ const meetingSlice = createSlice({
     }
 })
 
-export  const {addMeeting, deleteMeeting} = meetingSlice.actions
+export  const {addMeeting, deleteMeeting, checkMeetings} = meetingSlice.actions
 
 export default meetingSlice.reducer;

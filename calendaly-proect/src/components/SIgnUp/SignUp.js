@@ -23,12 +23,9 @@ const SignUp = () => {
     },[dispatch])
 
     useEffect(() => {
-    if(!token) {
-    navigate('/sign-in')
-    } else {
+    if(token) {
     navigate('/ivent-page')
-    }
-    })
+    }},[token] [navigate])
 
 
     useEffect(() => {
