@@ -37,10 +37,16 @@ const userSlice = createSlice({
             state.token = null
             localStorage.removeItem(local_token.TOKEN)
         },
+        userUpdate : (state, action) => {
+            const  updateUser = action.payload
+            const indexUser = state.users.findIndex(user => user.username === updateUser.username)
+            state.users[indexUser] = updateUser
+            localStorage.setItem(local_token.USERS, JSON.stringify(state.users))
+        }
     }
 },
 )
 
-export const {userSignUp, userSignIn, userList, userToken, userState, logOutUser} = userSlice.actions;
+export const {userSignUp, userSignIn, userList, userToken, userState, logOutUser, userUpdate} = userSlice.actions;
 
 export default userSlice.reducer;

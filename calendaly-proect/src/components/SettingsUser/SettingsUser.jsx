@@ -6,9 +6,9 @@ import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from "react-redux"
 import { useFormik } from "formik";
 import { settingsValidation } from "./settingsValidation";
-import { userSignUp } from "../../store/userSlice";
+import { userSignUp, userUpdate } from "../../store/userSlice";
 
-const SettingsUser = () => {
+const SettingsUser = ({onClose}) => {
     const user = useSelector(personalUser)
     const users = useSelector(allUser);
 
@@ -32,13 +32,14 @@ const SettingsUser = () => {
 
             const {email, password, emailNew, passwordNew} = formik.values
             const userExp =  users.find(user => user.email === email && user.password === password)
-            const NewUserDaata = {
+            const updateUser = {
                 email: emailNew,
                 password: passwordNew,
                 username: userExp.username
             };
             if(userExp) {
-                dispatch(userSignUp( NewUserDaata));
+                dispatch(userUpdate( updateUser));
+                onClose()
             } else {
                 alert('Email not Found')
             }

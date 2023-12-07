@@ -35,10 +35,7 @@ const UserMenu = () => {
                 onClick={setOpenMenu}
                 size="small"
                 sx={{ ml: 2 }}
-                aria-controls={open ? 'account-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-            >
+              >
                     <Avatar sx={{ width: 32, height: 32 }}></Avatar>
                 </IconButton>
             </Tooltip>
@@ -90,7 +87,7 @@ const UserMenu = () => {
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          <SettingsUser/>
+          <SettingsUser onClose={heandleCloseMenu} />
         </MenuItem>
         <MenuItem onClick={logOut}>
           <ListItemIcon>

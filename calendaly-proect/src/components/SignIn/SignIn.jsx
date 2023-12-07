@@ -9,7 +9,6 @@ import { useEffect } from 'react';
 import { userList, userToken } from "../../store/userSlice";
 import {  Link } from "react-router-dom"
 import './sign.css'
-import { local_token } from "../../common/constatnts";
 
 
 
@@ -27,7 +26,7 @@ const SignIn = () => {
     useEffect(() => {
         if(token) {
         navigate('/ivent-page')
-    }},[token] [navigate])
+    }},[token , navigate])
 
 
     useEffect(() => {
@@ -49,8 +48,7 @@ const SignIn = () => {
                 navigate("/ivent-page")
             } else {
                 alert('user not found , SIGN UP')
-                localStorage.setItem(local_token.TEMP_EMAIL, email)
-                navigate('/sign-up')
+                navigate('/sign-up', {state: { email : formik.values.email}})
             }
         }
     });
@@ -93,7 +91,10 @@ const SignIn = () => {
                 <Button type="submit" variant="contained" color="primary">
                     SIGN IN
                 </Button>
-                <span className="sign-up-link"><Link to='/sign-up'>Dont have account? Sign-UP!</Link></span>
+                <span className="sign-up-link"><Link to={{
+                    pathname: '/sign-up',
+                    state:  { email : formik.values?.email}}
+                }>Dont have account? Sign-UP!</Link></span>
             </form>
 
         </Container>

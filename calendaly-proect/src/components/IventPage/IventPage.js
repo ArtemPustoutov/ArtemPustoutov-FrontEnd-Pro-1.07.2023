@@ -35,7 +35,7 @@ const IventPage = () => {
     useEffect(() => {
         if(!token) {
         navigate('/sign-in')
-    }},[token] [navigate])
+    }},[token , navigate])
 
 
     return(

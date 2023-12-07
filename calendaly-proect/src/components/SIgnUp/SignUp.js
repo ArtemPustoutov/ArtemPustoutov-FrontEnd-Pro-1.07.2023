@@ -1,6 +1,6 @@
 import { useFormik } from "formik"
 import {Button, TextField, Typography, Container} from '@mui/material'
-import {useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import { signUpvalidation } from "./validationSignUp"
 import { useDispatch, useSelector  } from 'react-redux';
 import { userList, userSignUp, userToken} from "../../store/userSlice";
@@ -15,8 +15,8 @@ const SignUp = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const users = useSelector(allUser);
-    const templEmail = localStorage.getItem(local_token.TEMP_EMAIL)
     const token = useSelector(takeToken)
+    const {state} = useLocation()
 
     useEffect(() => {
     dispatch(userToken())
@@ -25,7 +25,7 @@ const SignUp = () => {
     useEffect(() => {
     if(token) {
     navigate('/ivent-page')
-    }},[token] [navigate])
+    }},[navigate, token])
 
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const SignUp = () => {
 
     const formik = useFormik({
         initialValues: {
-            email: templEmail || '',
+            email: state?.email || '',
             password: '',
             confirmPassword: '',
             username: ''

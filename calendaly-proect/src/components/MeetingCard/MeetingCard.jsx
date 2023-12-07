@@ -41,6 +41,7 @@ const MeetingCard = () => {
             alert(JSON.stringify(values, null, 2));
         }
     })
+
     return (
         <>
         {userQuantity() === true ? (
@@ -52,7 +53,7 @@ const MeetingCard = () => {
                 placeholder="Email"
                 label="Email"
                 name="email"
-                id="email"
+                id="email-invite"
                 onChange={formik.handleChange}
                 value={formik.values.email}
                 helperText={formik.touched.email && formik.errors.email}
@@ -71,8 +72,8 @@ const MeetingCard = () => {
             Create Your meeting
         </Typography>)}
     {meetings.length === 0 ? (<Typography variant="h6" align="center" mt={6}> NO Events </Typography>) : 
-    ( meetings.map((meeting) =>(user.username === meeting.selectedUser || user.username === meeting.creater ?
-        (<Card key={meeting.name} id={meeting.name} sx={{ minWidth: 275 }}>
+    ( meetings.map((meeting) =>(user.username === meeting.selectedUser || user.username === meeting.creater ?    ///// НЕТ ПРОВЕРКИ КОГДА НЕСКОЛЬКО ЮЗЕРОВ ПРИГЛАШЕН ИЛИ НЕТ
+        (<Card className="meeting-card" key={meeting.name} id={meeting.name} sx={{ minWidth: 275 }}>
             <CardContent>
             <Typography variant="h5" component="div">
                 Creater:{meeting.creater}
@@ -80,7 +81,7 @@ const MeetingCard = () => {
             <Typography variant="h5" component="div">
                 Invite user:
                 {meeting.selectedUser.map((meeting) => (
-                    <span className=" selectedUser">{meeting.username}</span>
+                    <span className=" selectedUser">{meeting.username}</span>  ///// КОСТЫЛЬ
                 ))}
             </Typography>
             <Typography variant="h5" component="div">
