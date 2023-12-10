@@ -7,7 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import {Logout, Settings, PersonAdd}from '@mui/icons-material' 
+import { Logout, Settings, PersonAdd } from '@mui/icons-material'
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logOutUser } from "../../store/userSlice";
@@ -15,32 +15,32 @@ import ProfileUser from "../ProfileUser/ProfileUser";
 import SettingsUser from "../SettingsUser/SettingsUser";
 
 const UserMenu = () => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    let logOut = () => {
-        dispatch(logOutUser())
-        navigate('/sign-in')
-    }
-    const [openMenu, setOpenMenu] = useState(false)
-    const heandleCloseMenu = () => {
-        setOpenMenu(false);
-    };
-    const open = Boolean(openMenu)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  let logOut = () => {
+    dispatch(logOutUser())
+    navigate('/sign-in')
+  }
+  const [openMenu, setOpenMenu] = useState(false)
+  const heandleCloseMenu = () => {
+    setOpenMenu(false);
+  };
+  const open = Boolean(openMenu)
 
-    return(
-        <>
-        <Box>
-            <Tooltip title="Account settings">
-                <IconButton
-                onClick={setOpenMenu}
-                size="small"
-                sx={{ ml: 2 }}
-              >
-                    <Avatar sx={{ width: 32, height: 32 }}></Avatar>
-                </IconButton>
-            </Tooltip>
-        </Box>
-        <Menu
+  return (
+    <>
+      <Box>
+        <Tooltip title="Account settings">
+          <IconButton
+            onClick={setOpenMenu}
+            size="small"
+            sx={{ ml: 2 }}
+          >
+            <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
         id="account-menu"
         open={open}
         onClose={heandleCloseMenu}
@@ -74,7 +74,7 @@ const UserMenu = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
         <MenuItem >
-        <Avatar /> <ProfileUser/>
+          <Avatar /> <ProfileUser />
         </MenuItem>
         <Divider />
         <MenuItem onClick={heandleCloseMenu}>
@@ -96,10 +96,10 @@ const UserMenu = () => {
           Logout
         </MenuItem>
       </Menu>
-        </>
-        
+    </>
 
-    )
+
+  )
 }
 
 export default UserMenu

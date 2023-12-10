@@ -1,11 +1,9 @@
-import  {Alert, Card, CardContent}  from "@mui/material";
-import Button from '@mui/material/Button';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { allMeeting, personalUser, allUser } from "../../store/selectors/selectors";
-import { useFormik } from "formik";
-import { emailValidation } from "../IventPage/emailValidation";
-import { deleteMeeting } from "../../store/meetingSlice";
 import Typography from '@mui/material/Typography';
+import EventCard from "./EventCard";
+import UserInvite from "./UserInvite";
+import React from "react";
 
 
 
@@ -14,90 +12,26 @@ import Typography from '@mui/material/Typography';
 
 const MeetingCard = () => {
 
-    const dispatch = useDispatch()
     const user = useSelector(personalUser)
     const users = useSelector(allUser)
     const meetings = useSelector(allMeeting)
-
-
-    const heandleDelate =  (meeting) => {
-        dispatch(deleteMeeting(meeting))
-    }
-
-
-    const userQuantity = () => {
-        if(users.length === 1) {
-            return true
-        } else {
-            return false
-        }
-    }
-        const formik = useFormik ({
-        initialValues: {
-            email: ''
-        },
-        validationSchema: emailValidation,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-        }
-    })
+    const text = (
+        <span>
+            Create Your meeting <br />
+            No Events
+        </span>
+    )
 
     return (
         <>
-        {userQuantity() === true ? (
-        <Alert severity="info">
-        Congratulation you are first client, please invite you friends (college’s )
-        <form onSubmit={formik.handleSubmit}>
-            <input
-                type="email"
-                placeholder="Email"
-                label="Email"
-                name="email"
-                id="email-invite"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-                helperText={formik.touched.email && formik.errors.email}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                onBlur={formik.handleBlur}>
-            </input>
-            <Button type="submit"  size="small" color="error">Send</Button>
-        </form>
-        </Alert>
-    ) : 
-    (meetings.length > 0 ?
-        <Typography variant="h6" align="center" mt={6}>
-            Your meetings
-        </Typography> :
-        <Typography variant="h6" align="center" mt={6}>
-            Create Your meeting
-        </Typography>)}
-    {meetings.length === 0 ? (<Typography variant="h6" align="center" mt={6}> NO Events </Typography>) : 
-    ( meetings.map((meeting) =>(user.username === meeting.selectedUser || user.username === meeting.creater ?    ///// НЕТ ПРОВЕРКИ КОГДА НЕСКОЛЬКО ЮЗЕРОВ ПРИГЛАШЕН ИЛИ НЕТ
-        (<Card className="meeting-card" key={meeting.name} id={meeting.name} sx={{ minWidth: 275 }}>
-            <CardContent>
-            <Typography variant="h5" component="div">
-                Creater:{meeting.creater}
-            </Typography>
-            <Typography variant="h5" component="div">
-                Invite user:
-                {meeting.selectedUser.map((meeting) => (
-                    <span className=" selectedUser">{meeting.username}</span>  ///// КОСТЫЛЬ
-                ))}
-            </Typography>
-            <Typography variant="h5" component="div">
-                Event name:{meeting.eventName}
-            </Typography>
-            <Typography variant="h5" component="div">
-                Event description:{meeting.description}
-            </Typography>
-            <Typography>
-                Selcted Time :  {JSON.stringify(meeting.selectTime)}
-            </Typography>
-            <Button onClick={() => heandleDelate(meeting)} variant="contained" color="error">DELETE</Button>
-            </CardContent>
-        </Card>) :
-        <Typography variant="h6" align="center" mt={6}>  You Dont have Meetings</Typography>
-    )))}
+            {users.length === 1 ? <UserInvite /> :
+                (<Typography variant="h6" align="center" mt={6}>
+                    {meetings.length > 0 ? "Your meetings" : text}
+                </Typography>)}
+            {meetings.map((meeting) => meeting.selectedUser.some((_) => user.username === _.username) || user.username === meeting.creater ?
+                <EventCard meeting={meeting} /> :
+                <Typography variant="h6" align="center" mt={6}>  You Dont have Meetings</Typography>
+            )}
         </>
     )
 

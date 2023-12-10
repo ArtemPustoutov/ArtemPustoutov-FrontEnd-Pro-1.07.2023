@@ -1,11 +1,11 @@
 import { useFormik } from "formik"
-import {Button, TextField, Typography, Container} from '@mui/material'
-import {useLocation, useNavigate} from 'react-router-dom'
+import { Button, TextField, Typography, Container } from '@mui/material'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { signUpvalidation } from "./validationSignUp"
-import { useDispatch, useSelector  } from 'react-redux';
-import { userList, userSignUp, userToken} from "../../store/userSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { userList, userSignUp, userToken } from "../../store/userSlice";
 import { useEffect } from 'react';
-import { allUser,takeToken  } from "../../store/selectors/selectors";
+import { allUser, takeToken } from "../../store/selectors/selectors";
 import { local_token } from "../../common/constatnts";
 
 
@@ -16,16 +16,17 @@ const SignUp = () => {
     const navigate = useNavigate()
     const users = useSelector(allUser);
     const token = useSelector(takeToken)
-    const {state} = useLocation()
+    const { state } = useLocation()
 
     useEffect(() => {
-    dispatch(userToken())
-    },[dispatch])
+        dispatch(userToken())
+    }, [dispatch])
 
     useEffect(() => {
-    if(token) {
-    navigate('/ivent-page')
-    }},[navigate, token])
+        if (token) {
+            navigate('/event-page')
+        }
+    }, [navigate, token])
 
 
     useEffect(() => {
@@ -41,25 +42,25 @@ const SignUp = () => {
         },
         validationSchema: signUpvalidation,
         onSubmit: () => {
-            const {email, username, password} = formik.values
+            const { email, username, password } = formik.values
             const NewUser = {
                 email,
                 username,
-                password, 
+                password,
             };
 
-            const userExp =  users.find(user => user.email === email)
-            if(!userExp) {
+            const userExp = users.find(user => user.email === email)
+            if (!userExp) {
                 dispatch(userSignUp(NewUser));
                 localStorage.removeItem(local_token.TEMP_EMAIL)
-                navigate("/ivent-page")
+                navigate("/event-page")
             } else {
                 alert('user alredy exist, SIGN IN')
             }
         }
     })
 
-    return(
+    return (
         <Container>
             <form onSubmit={formik.handleSubmit}>
                 <Typography variant="h3" gutterBottom>

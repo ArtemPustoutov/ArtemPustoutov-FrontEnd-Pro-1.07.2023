@@ -11,13 +11,8 @@ export const ModalWindow = () => {
     const users = useSelector(allUser)
 
     const userQuantity = () => {
-        if(users.length === 1) {
-            return true
-        } else {
-            return false
-        }
+        return users.length === 1
     }
-
     const [open, setOpen] = useState(false)
     const heandleOpenModal = () => {
         setOpen(true);
@@ -26,20 +21,20 @@ export const ModalWindow = () => {
         setOpen(false);
     };
 
-    return(
+    return (
         <>
-        <Button variant="contained" color="success" disabled= {userQuantity()} onClick={heandleOpenModal} >Create Event</Button>
-        <Modal
-        open={open}
-        onClose={heandleCloseModal}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-        >
-        <Box className="modal" sx={{ width: 400 }}>
-            <h2 id="parent-modal-title">Create new Event</h2>
-            <MeetingForm onClose={heandleCloseModal}/>
-        </Box>
-        </Modal>
+            <Button variant="contained" color="success" disabled={userQuantity()} onClick={heandleOpenModal} >Create Event</Button>
+            <Modal
+                open={open}
+                onClose={heandleCloseModal}
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
+            >
+                <Box className="modal" sx={{ width: 400 }}>
+                    <h2 id="parent-modal-title">Create new Event</h2>
+                    <MeetingForm onClose={heandleCloseModal} />
+                </Box>
+            </Modal>
         </>
 
     )

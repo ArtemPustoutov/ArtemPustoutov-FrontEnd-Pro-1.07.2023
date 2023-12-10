@@ -22,6 +22,7 @@ const meetingSlice = createSlice({
         },
         deleteMeeting: (state, action) => {
             state.meetings = state.meetings.filter(meeting => JSON.stringify(meeting) !== JSON.stringify(action.payload))
+            localStorage.setItem(local_token.MEETINGS, JSON.stringify(state.meetings))
         },
     }
 })
